@@ -5,13 +5,9 @@ import { Provider } from 'react-redux'
 import {
     BrowserRouter,
     Route,
-    Link,
     Redirect,
     Switch
 } from 'react-router-dom'
-
-import App from './App'
-// import { counter } from './index.redux'
 import reducers from './reducers'
 import Auth from './Auth'
 import Dashboard from './Dashboard'
@@ -22,7 +18,6 @@ const store = createStore(reducers, compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
-console.log(store.getState())
 
 ReactDom.render(
     <Provider store={store}>
