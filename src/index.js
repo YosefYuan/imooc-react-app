@@ -13,14 +13,12 @@ import Auth from './Auth'
 import Dashboard from './Dashboard'
 import thunk from 'redux-thunk'
 
-
 const store = createStore(reducers, compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
-
 ReactDom.render(
-    <Provider store={store}>
+    (<Provider store={store}>
         <BrowserRouter>
             <Switch>
                 <Route path='/login' component={Auth}></Route>
@@ -28,6 +26,6 @@ ReactDom.render(
                 <Redirect to='/dashboard'></Redirect>
             </Switch>
         </BrowserRouter>
-    </Provider>,
+    </Provider>),
     document.getElementById('root')
 )
