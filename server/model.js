@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
-const DB_URL = "mongodb://127.0.0.1:27017/imooc-chat"
+// const DB_URL = "mongodb://127.0.0.1:27017/imooc-chat"
+const DB_URL = 'mongodb://6e_hr:123456xyz@ds261430.mlab.com:61430/6e_hr'
 mongoose.connect(DB_URL)
 
 const models = {

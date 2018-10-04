@@ -16,7 +16,7 @@ export function user(state = initState, action) {
     switch (action.type) {
         case REGISTER_SUCCESS:
             console.log('payload', action)
-            return { ...state, msg: '', redirectTo: getRedirectPath(action.payload.type), isAuth: true, ...action.payload }
+            return { ...state, msg: '', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload }
         case ERROR_MSG:
             return { ...state, isAuth: false, msg: action.msg }
         default:
