@@ -27,7 +27,7 @@ class AvatarSelector extends React.Component {
                     columnNum={5}
                     onClick={ele =>{
                         this.setState(ele)
-                        this.props.selectAvator(ele.text)
+                        this.props.selectAvatar(ele.text)
                     }}></Grid>
                 </List>
             </div>
