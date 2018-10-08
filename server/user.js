@@ -9,9 +9,10 @@ const _filter = {
 }
 
 Router.get('/list', function (req, res) {
+    const {type} = req.query
     // User.deleteMany({},function(e,d){})
-    User.find({}, function (err, doc) {
-        res.json(doc)
+    User.find({type}, function (err, doc) {
+        res.json({code:0,data:doc})
     })
 })
 Router.post('/update',function(req,res){
