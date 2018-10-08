@@ -14,7 +14,7 @@ class BossInfo extends React.Component {
         super(props)
         this.state = {
             title: '',
-             desc:'',
+            desc:'',
             company:'',
             money:''
         }
