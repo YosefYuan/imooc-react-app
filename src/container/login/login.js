@@ -4,29 +4,82 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from "antd-mobile";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../redux/user.redux";
+import imoocForm from "../../component/imooc-form/imooc-form";
+
+// function hello() {
+//   console.log("i love react");
+// }
+
+// function WrapperHello(fn) {
+//   return function() {
+//     console.log("before say hello");
+//     fn();
+//     console.log("after say hello");
+//   };
+// }
+
+// hello = WrapperHello(hello)
+// hello()
+
+// const testAttr = {
+//   a: 1,
+//   b: 3
+// };
+// 1.属性代理 2.反向继承
+// function WrapperHello(Comp) {
+//   class WrapComp extends Comp {
+//     componentDidMount() {
+//       console.log("new add");
+//     }
+//     render() {
+//       return <Comp />;
+//     }
+//   }
+//   class WrapComp extends React.Component {
+//     render() {
+//       return (
+//         <div>
+//           <p>这是Hoc高阶组建特有的元素</p>
+//           <Comp {...testAttr} name='text' />
+//         </div>
+//       );
+//     }
+//   }
+//   return WrapComp;
+// }
+
+// @WrapperHello
+// class Hello extends React.Component {
+//   constructor(props) {
+//     console.log(props);
+//     super(props);
+//     console.log(this.props);
+//   }
+//   render() {
+//     return <h2>hello i love react</h2>;
+//   }
+// }
+
+// Hello = WrapperHello(Hello);
 
 @connect(
   state => state.user,
   { login }
 )
+@imoocForm
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: "",
-      pwd: ""
-    };
+    // this.state = {
+    //   user: "",
+    //   pwd: ""
+    // };
     this.register = this.register.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
   handleLogin() {
-    this.props.login(this.state);
+    this.props.login(this.props.state);
     console.log("props", this.props);
-  }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    });
   }
   register() {
     console.log("props", this.props);
@@ -35,9 +88,10 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        {(this.props.redirectTo && this.props.redirectTo != "/login") ? (
+        {this.props.redirectTo && this.props.redirectTo != "/login" ? (
           <Redirect to={this.props.redirectTo} />
         ) : null}
+        {/* <Hello /> */}
         <Logo />
         <WingBlank>
           {this.props.msg ? (
@@ -46,14 +100,14 @@ class Login extends React.Component {
           <List>
             <InputItem
               onChange={v => {
-                this.handleChange("user", v);
+                this.props.handleChange("user", v);
               }}
             >
               用户
             </InputItem>
             <InputItem
               onChange={v => {
-                this.handleChange("pwd", v);
+                this.props.handleChange("pwd", v);
               }}
               type="password"
             >
