@@ -2,13 +2,13 @@ import axios from 'axios'
 const USER_LIST = "USER_LIST";
 
 const initState = {
-  userList: []
+  userlist: []
 };
 
 export function chatuser(state = initState, action) {
   switch (action.type) {
       case USER_LIST:
-          return {...state,userList:action.payload}
+          return {...state,userlist:action.payload}
       default:
           return state
   }

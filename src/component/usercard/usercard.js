@@ -1,22 +1,27 @@
 import React from "react";
-import axios from "axios";
-import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { Card, WhiteSpace, WingBlank } from "antd-mobile";
+import { withRouter } from "react-router-dom";
 
-@connect(
-  state => state.chatuser,
-)
+@withRouter
 class UserCard extends React.Component {
+  static propsTypes = {
+    userlist: PropTypes.array.isRequired
+  };
+  handleClick(v) {
+    this.props.history.push(`/chat/${v.user}`);
+  }
   render() {
     const Header = Card.Header;
     const Body = Card.Body;
+    console.log("props", this.props);
     return (
       <WingBlank>
         <WhiteSpace />
-        {this.props.userList.map(
+        {this.props.userlist.map(
           v =>
             v.avatar ? (
-              <Card key={v._id}>
+              <Card key={v._id} onClick={() => this.handleClick(v)}>
                 <Header
                   title={v.user}
                   thumb={require(`../img/${v.avatar}.png`)}
