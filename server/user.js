@@ -8,7 +8,9 @@ const _filter = {
   pwd: 0,
   __v: 0
 };
-
+Chat.remove({},function(e,d){
+    
+})
 Router.get("/list", function(req, res) {
   const { type } = req.query;
   // User.deleteMany({},function(e,d){})
