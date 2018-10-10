@@ -14,7 +14,6 @@ class UserCard extends React.Component {
   render() {
     const Header = Card.Header;
     const Body = Card.Body;
-    console.log("props", this.props);
     return (
       <WingBlank>
         <WhiteSpace />
