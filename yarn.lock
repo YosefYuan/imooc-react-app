@@ -5805,7 +5805,7 @@ node-pre-gyp@^0.10.0:
 
 nodemon@^1.18.4:
   version "1.18.4"
-  resolved "http://registry.npm.taobao.org/nodemon/download/nodemon-1.18.4.tgz#873f65fdb53220eb166180cf106b1354ac5d714d"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.18.4.tgz#873f65fdb53220eb166180cf106b1354ac5d714d"
   integrity sha512-hyK6vl65IPnky/ee+D3IWvVGgJa/m3No2/Xc/3wanS6Ce1MWjCzH6NnhPJ/vZM+6JFym16jtHx51lmCMB9HDtg==
   dependencies:
     chokidar "^2.0.2"
