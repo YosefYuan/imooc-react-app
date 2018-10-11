@@ -40,8 +40,7 @@ class Chat extends React.Component {
     const Item = List.Item;
     return (
       <div id="chat-page">
-        <NavBar>{this.props.match.params.user}</NavBar>
-
+        <NavBar mode="dark">{this.props.match.params.user}</NavBar>
         {this.props.chat.chatmsg.map(v => {
           return v.from == user ? (
             <List key={v._id}>
@@ -49,10 +48,9 @@ class Chat extends React.Component {
             </List>
           ) : (
             <List key={v._id}>
-              <Item 
-              extra={'avatar'}
-                className='chat-me'
-                >{v.content}</Item>
+              <Item extra={"avatar"} className="chat-me">
+                {v.content}
+              </Item>
             </List>
           );
         })}
