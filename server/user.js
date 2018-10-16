@@ -11,16 +11,16 @@ const _filter = {
 // Chat.remove({},function(e,d){
 
 // })
-Router.get("/list", function(req, res) {
+Router.get("/list", function (req, res) {
   const { type } = req.query;
   // User.deleteMany({},function(e,d){})
-  User.find({ type }, function(err, doc) {
+  User.find({ type }, function (err, doc) {
     res.json({ code: 0, data: doc });
   });
 });
-Router.get("/getmsglist", function(req, res) {
+Router.get("/getmsglist", function (req, res) {
   const user = req.cookies.userid;
-  User.find({}, function(e, userdoc) {
+  User.find({}, function (e, userdoc) {
     let users = {};
     userdoc.forEach(v => {
       users[v._id] = { name: v.user, avatar: v.avatar };
@@ -29,7 +29,7 @@ Router.get("/getmsglist", function(req, res) {
       {
         $or: [{ from: user }, { to: user }]
       },
-      function(err, doc) {
+      function (err, doc) {
         console.log({ doc });
         if (!err) {
           return res.json({ code: 0, msgs: doc, users: users });
@@ -38,13 +38,32 @@ Router.get("/getmsglist", function(req, res) {
     );
   });
 });
-Router.post("/update", function(req, res) {
+
+Router.post("/readmsg", function (req, res) {
+  const userid = req.cookies.userid
+  const { from } = req.body
+  console.log(userid, from)
+  Chat.update(
+    { from, to: userid },
+    { '$set': { read: true } },
+    { 'multi': true },
+    function (err, doc) {
+      console.log(doc)
+      if (!err) {
+        return res.json({ code: 0, num: doc.nModified })
+      }
+      return res.json({ code: 1, msg: '修改失败' })
+    })
+
+})
+
+Router.post("/update", function (req, res) {
   const userid = req.cookies.userid;
   if (!userid) {
     return res.json.dumps({ code: 1 });
   }
   const body = req.body;
-  User.findByIdAndUpdate(userid, body, function(err, doc) {
+  User.findByIdAndUpdate(userid, body, function (err, doc) {
     const data = Object.assign(
       {},
       {
@@ -56,7 +75,7 @@ Router.post("/update", function(req, res) {
     return res.json({ code: 0, data });
   });
 });
-Router.post("/login", function(req, res) {
+Router.post("/login", function (req, res) {
   const { user, pwd } = req.body;
   User.findOne(
     {
@@ -64,7 +83,7 @@ Router.post("/login", function(req, res) {
       pwd: md5Pwd(pwd)
     },
     _filter,
-    function(err, doc) {
+    function (err, doc) {
       if (!doc) {
         return res.json({
           code: 1,
@@ -79,14 +98,14 @@ Router.post("/login", function(req, res) {
     }
   );
 });
-Router.post("/register", function(req, res) {
+Router.post("/register", function (req, res) {
   console.log("body", req.body);
   const { user, pwd, type } = req.body;
   User.findOne(
     {
       user
     },
-    function(err, doc) {
+    function (err, doc) {
       if (doc) {
         return res.json({
           code: 1,
@@ -98,7 +117,7 @@ Router.post("/register", function(req, res) {
         type,
         pwd: md5Pwd(pwd)
       });
-      userModel.save(function(e, d) {
+      userModel.save(function (e, d) {
         if (e) {
           return res.json({
             code: 1,
@@ -119,7 +138,7 @@ Router.post("/register", function(req, res) {
     }
   );
 });
-Router.get("/info", function(req, res) {
+Router.get("/info", function (req, res) {
   const { userid } = req.cookies;
   if (!userid) {
     return res.json({
@@ -131,7 +150,7 @@ Router.get("/info", function(req, res) {
       _id: userid
     },
     _filter,
-    function(err, doc) {
+    function (err, doc) {
       if (err) {
         return res.json({
           code: 1,
